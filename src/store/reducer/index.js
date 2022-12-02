@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 
 const rootReducer=combineReducers(
     {
-       banner : reducer,
+       app : reducer,
     }
 )
 export default rootReducer

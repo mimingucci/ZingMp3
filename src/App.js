@@ -1,14 +1,17 @@
 import './App.css';
 import path from './utils/path';
 import {Route, Routes} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import { useEffect } from 'react';
-import {getHomeApi} from './store/action/home'
 import Home from './containers/public/Home';
-
+import * as actions from './store/action'
+import {useEffect} from 'react'
+import { useDispatch } from 'react-redux';
 function App() {
-  const dispatch=useDispatch();
-  useEffect(()=> {dispatch(getHomeApi())}, [])
+  // const dispatch=useDispatch();
+  // useEffect(()=> {dispatch(getHomeApi())}, [])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(actions.getHomeApi())
+  }, [])
   return (
     <div className="App">
      

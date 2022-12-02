@@ -1,9 +1,14 @@
 import axios from '../axios'
-export const getHome = ()=> new Promise(async(resolve, reject)=>{
+export const getHome = async()=>{
     try {
-        const response=await axios.get({url:"/home"});
-        resolve(response);
+        const response=await axios(
+            {
+                url: '/home',
+                method: 'get'
+            }
+        );
+        return response
     } catch (error) {
-        reject(error);
+       return error
     }
-})
+}

@@ -3,13 +3,12 @@ import path from './utils/path';
 import {Route, Routes} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import { useEffect } from 'react';
-import {getHome} from './store/action/home'
+import {getHomeApi} from './store/action/home'
 import Home from './containers/public/Home';
+
 function App() {
   const dispatch=useDispatch();
-  useEffect(()=>
-    dispatch(getHome())
-  , [])
+  useEffect(()=> {dispatch(getHomeApi())}, [])
   return (
     <div className="App">
      

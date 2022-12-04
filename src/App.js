@@ -5,6 +5,8 @@ import Home from './containers/public/Home';
 import * as actions from './store/action'
 import {useEffect} from 'react'
 import { useDispatch } from 'react-redux';
+import Album from './containers/public/Album';
+import Public from './containers/public/Public';
 function App() {
   // const dispatch=useDispatch();
   // useEffect(()=> {dispatch(getHomeApi())}, [])
@@ -16,10 +18,11 @@ function App() {
     <div className="App">
      
       <Routes>
-        <Route path={path.PUBLIC} element={<Home/>}>
+        <Route path={path.PUBLIC} element={<Public/>}>
         <Route path={path.HOME} element={<Home/>} />
-        <Route path={path.STAR} element={<Home/>} />
+        {/* <Route path={path.STAR} element={<Home/>} /> */}
         </Route>
+        <Route path={'/'+path.ALBUM__TITLE__PID} element={<Album/>}/>
       </Routes>
     </div>
   );

@@ -12,7 +12,20 @@ module.exports = {
     "./public/index.html"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        'main-100':'#393243',
+        'main-200':'#231b2e',
+        'main-300':'#170f23',
+        'main-400':'#130c1c',
+        'main-500':'#9b4de0',
+        'main-600':'#5e4ce6',
+        'text-100':'#fff',
+        'text-200':'#807c87',
+      },
+     
+      
+    },
   },
   plugins: [
     require('tailwind-scrollbar')

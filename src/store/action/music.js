@@ -8,3 +8,10 @@ export const getDetailPlaylist=async(pid)=>{
     const response=await apis.apiGetDetaiPlaylist(pid);
     console.log('playlist',response)
 }
+
+export const setCurrentSongId=(songId, linkSong,linkImage, songName, artists)=>{
+    return {
+        type: actionType.SET_CURRENT_SONG_ID,
+        payload: {songId, linkSong, linkImage, songName, artists},
+    }
+}

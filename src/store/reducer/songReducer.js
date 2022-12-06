@@ -19,7 +19,7 @@ const songReducer = (state=initState, action) => {
             }
         }
         case actionType.SET_CURRENT_SONG_ID:
-
+            
             return {
                 ...state,
                 currentSongId: action.payload.songId || null,
@@ -27,6 +27,11 @@ const songReducer = (state=initState, action) => {
                 image: action.payload.linkImage,
                 songName: action.payload.songName,
                 artists: [...action.payload.artists],
+            }
+        case actionType.PLAY:
+            return {
+                ...state,
+                isPlaying: action.payload,
             }
         default:
             return state

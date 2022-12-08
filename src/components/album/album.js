@@ -14,20 +14,33 @@ const AlbumMain = () => {
     let {pid}=useParams();
     const [currentAlbumId, setCurrentAlbumId]= useState(pid)
     const [albumDetail, setAlbumDetail]=useState(null)
-    console.log(pid)
     useEffect(()=>{
         const getDetailPlaylist=async()=>{
            const response=await apis.apiGetDetaiPlaylist(pid);
            console.log('playlist',response);
-           setAlbumDetail(response)
-        }
-        getDetailPlaylist()
+           const listSongs=response?.data?.data?.song?.items.map(item=>item.encodeId);
+           console.log(listSongs);
+           setAlbumDetail(response);
+           dispatch(actions.listSongsInAlbum(listSongs));
+          }
+        getDetailPlaylist();
     }, [pid])
-    const handleClickSong=async(item)=>{
-      console.log('item',item)
+    const handleClickSong=async(item, index)=>{
+      let previousSong;
+      let nextSong;
       const response=await apis.apiGetSong(item?.encodeId)
-      dispatch(actions.setCurrentSongId(item?.encodeId, response?.data?.data['128'],item?.thumbnailM, item?.title, item?.artists))
-      console.log('song detail', response)
+      const albumLength=albumDetail?.data?.data?.song?.items.length;
+      if(index===0){
+         previousSong=albumLength-1;
+      }else{
+        previousSong=index-1;
+      }
+       if(index===albumLength-1){
+        nextSong=0;
+       }else{
+        nextSong=index+1;
+       }
+      dispatch(actions.setCurrentSongId(item?.encodeId, response?.data?.data['128'],item?.thumbnailM, item?.title, item?.artists, previousSong, nextSong));
     }
   return (
     <div className='h-full flex-auto bg-main-300'>
@@ -59,7 +72,7 @@ const AlbumMain = () => {
             <tbody className='text-text-200'>
               {
                 albumDetail?.data?.data?.song?.items?.map((item, index)=>(
-                  <tr key={item?.encodeId} className='h-[55px] w-full border-b border-text-200 hover:bg-main-100' onClick={()=>handleClickSong(item)}>
+                  <tr key={item?.encodeId} className='h-[55px] w-full border-b border-text-200 hover:bg-main-100' onClick={()=>handleClickSong(item, index)}>
                     <td className='flex text-xs'>
                       <div className='h-full flex justify-center items-center gap-2'>
                           <FiMusic/>

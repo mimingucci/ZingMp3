@@ -1,4 +1,3 @@
-import React from 'react'
 import actionType from '../action/actionType'
 const initState={
     currentSongId: null,
@@ -7,7 +6,11 @@ const initState={
     image:'',
     songName:'',
     artists:[],
+    prevSong: 0,
+    nextSong: 0,
+    listSongs:[],
 }
+
 const songReducer = (state=initState, action) => {
     console.log(action)
     switch (action.type) {
@@ -27,12 +30,42 @@ const songReducer = (state=initState, action) => {
                 image: action.payload.linkImage,
                 songName: action.payload.songName,
                 artists: [...action.payload.artists],
+                prevSong: action.payload.previousSong || 0,
+                nextSong: action.payload.nextSong || 0,
             }
         case actionType.PLAY:
             return {
                 ...state,
                 isPlaying: action.payload,
             }
+        case actionType.SET_LIST_SONGS_IN_ALBUM:
+            return {
+                ...state,
+                listSongs: [...action.payload],
+            }
+        case actionType.UPDATE_CURRENT_SONG_IN_ALBUM:
+            let nextSongIndex;
+            let previousSongIndex;
+            if(action.payload.currentSongIndex===0){
+                previousSongIndex=state.listSongs.length-1;
+            }else{
+                previousSongIndex=action.payload-1;
+            }
+            if(action.payload.currentSongIndex===state.listSongs.length-1){
+                nextSongIndex=0;
+            }else{
+                nextSongIndex=action.payload+1;
+            }
+           return {
+            ...state,
+            currentSongId: action.payload.currentSongId,
+            linkCurrentSong: action.payload.linkCurrentSong,
+            image: action.payload.image,
+            songName: action.payload.songName,
+            artists: action.payload.artists,
+            prevSong:previousSongIndex,
+            nextSong: nextSongIndex,
+           }
         default:
             return state
     }

@@ -1,17 +1,16 @@
-import React, {useEffect}from 'react'
-import Header from './header'
-import { useSelector, useDispatch } from 'react-redux'
-import {getHome} from '../../getApi/home'
-import Slider from './slider'
-function Main  () {
-  
+import React, { useEffect } from "react";
+import Header from "./header";
+import { useSelector, useDispatch } from "react-redux";
+import { getHome } from "../../getApi/home";
+import Slider from "./slider";
+function Main() {
   // useEffect(async()=>{const api=async()=>{
   //   const response=await getHome();
   //   const arr=response.data.data.items.find(item=>item.sectionType==='banner').items;
   //   for(let i=0; i<arr.length; i++){
   //       banner.push(arr[i].banner)
   // }
-  
+
   // // (async()=>{
   // //     const res=await api();
   // //     const arr=res.data.data.items.find(item=>item.sectionType==='banner').items;
@@ -21,11 +20,11 @@ function Main  () {
   // //       banner.push(arr[i].banner)
   // //     }
   //   }}, []);
-  const {banner}=useSelector(state=>state.app)
-  console.log(banner)
+  const { banner } = useSelector((state) => state.app);
+  console.log(banner);
   return (
-    <div className='w-fit h-full overflow-y-hidden flex-1 bg-[#170f23]'>
-      <Header/>
+    <div className="w-fit h-full overflow-y-hidden flex-1 bg-[#170f23]">
+      <Header />
       {/* <ul className='h-32 w-full block bg-red-800'>
        {banner.map((item, index) => (
                     <img
@@ -39,9 +38,9 @@ function Main  () {
                
                
       </ul> */}
-      <Slider/>
+      <Slider />
     </div>
-  )
+  );
 }
 
-export default Main
+export default Main;

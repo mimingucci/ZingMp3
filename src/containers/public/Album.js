@@ -1,17 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { AlbumMain } from '../../components/album'
 import {NavbarLeft, NavbarRight, Playmusic} from '../../components/home'
 
 const Album = () => {
+    const [isShowRightSidebar, setIsShowRightSidebar] = useState(true);
     return (
-        <div className='h-screen'>
+        <div className='h-screen overflow-x-hidden'>
         <div className='flex h-full'>
             <NavbarLeft/>
             <AlbumMain/>
-            <NavbarRight/>
+            {isShowRightSidebar && <div className='w-[240px] 1600:flex flex-none flex animate-slide-left'>
+                    <NavbarRight />
+                </div>}
         </div>
         <div className='fixed bottom-0 right-0 left-0 h-[90px]'>
-        <Playmusic/>
+        <Playmusic setIsShowRightSidebar={setIsShowRightSidebar}/>
         </div>
         </div>
         

@@ -3,9 +3,9 @@ import { HiOutlineChartPie, HiArrowNarrowLeft, HiArrowNarrowRight } from 'react-
 import { TbChartArcs } from 'react-icons/tb'
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { FiSearch, FiMusic } from 'react-icons/fi'
-import { BsThreeDots, BsFillPlayFill, BsPauseFill, BsMusicNoteBeamed, BsDot } from 'react-icons/bs'
+import { BsThreeDots, BsFillPlayFill, BsPauseFill, BsMusicNoteBeamed, BsDot, BsMusicNoteList} from 'react-icons/bs'
 import { CiRepeat, CiShuffle, CiLineHeight } from 'react-icons/ci'
-
+import {SlVolumeOff, SlVolume1, SlVolume2} from 'react-icons/sl'
 const icons = {
     MdOutlineLibraryMusic,
     HiOutlineChartPie,
@@ -28,7 +28,11 @@ const icons = {
     BsMusicNoteBeamed,
     BsDot,
     CiLineHeight, 
-    FiMusic
+    FiMusic,
+    SlVolumeOff,
+    SlVolume1,
+    SlVolume2,
+    BsMusicNoteList,
 }
 
 export default icons

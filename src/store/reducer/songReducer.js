@@ -12,7 +12,7 @@ const initState={
 }
 
 const songReducer = (state=initState, action) => {
-    console.log(action)
+    //console.log(action)
     switch (action.type) {
         case actionType.GET_CURRENT_SONG:{
           
@@ -49,12 +49,12 @@ const songReducer = (state=initState, action) => {
             if(action.payload.currentSongIndex===0){
                 previousSongIndex=state.listSongs.length-1;
             }else{
-                previousSongIndex=action.payload-1;
+                previousSongIndex=action.payload.currentSongIndex-1;
             }
             if(action.payload.currentSongIndex===state.listSongs.length-1){
                 nextSongIndex=0;
             }else{
-                nextSongIndex=action.payload+1;
+                nextSongIndex=action.payload.currentSongIndex+1;
             }
            return {
             ...state,
@@ -63,9 +63,15 @@ const songReducer = (state=initState, action) => {
             image: action.payload.image,
             songName: action.payload.songName,
             artists: action.payload.artists,
-            prevSong:previousSongIndex,
+            prevSong: previousSongIndex,
             nextSong: nextSongIndex,
+            isPlaying: true,
            }
+        case actionType.SET_SONG:
+            return {
+                ...state,
+                currentSongId: action.payload,
+            }
         default:
             return state
     }

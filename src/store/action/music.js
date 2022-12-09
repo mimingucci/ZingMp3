@@ -1,12 +1,18 @@
 import actionType from "./actionType";
 import * as apis from '../../getApi'
-export const getCurrentSong=async(songId)=>{
-    const response=await apis.getSong(songId);
-   return response;
-}
-export const getDetailPlaylist=async(pid)=>{
-    const response=await apis.apiGetDetaiPlaylist(pid);
-    console.log('playlist',response)
+// export const getCurrentSong=async(songId)=>{
+//     const response=await apis.getSong(songId);
+//    return response;
+// }
+// export const getDetailPlaylist=async(pid)=>{
+//     const response=await apis.apiGetDetaiPlaylist(pid);
+//     console.log('playlist',response)
+// }
+export const setSongId=(songId)=>{
+    return {
+        type: actionType.SET_SONG,
+        payload: songId,
+    }
 }
 
 export const setCurrentSongId=(songId, linkSong,linkImage, songName, artists, previousSong, nextSong)=>{

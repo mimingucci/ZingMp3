@@ -19,7 +19,7 @@ function App() {
      
       <Routes>
         <Route path={path.PUBLIC} element={<Public/>}>
-        <Route path={path.HOME} element={<Home/>} />
+        {/* <Route path={path.HOME} element={<Home/>} /> */}
         {/* <Route path={path.STAR} element={<Home/>} /> */}
         </Route>
         <Route path={'/'+path.ALBUM__TITLE__PID} element={<Album/>}/>

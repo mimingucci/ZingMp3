@@ -5,6 +5,7 @@ const actionType={
     PLAY: 'PLAY',
     SET_LIST_SONGS_IN_ALBUM: 'SET_LIST_SONGS_IN_ALBUM',
     UPDATE_CURRENT_SONG_IN_ALBUM: 'UPDATE_CURRENT_SONG_IN_ALBUM',
+    SET_SONG:'SET_SONG',
 }
 
 export default actionType

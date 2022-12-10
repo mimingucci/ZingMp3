@@ -22,3 +22,17 @@ export const getHomeApi=()=>async(dispatch)=>{
         })
      }
 }
+
+export const setShuffle=(state)=>{
+    return {
+        type: actionType.SET_SHUFFLE_SONGS_IN_ALBUM, 
+        payload: state,
+    }
+}
+
+export const setLoop=(state)=>{
+    return {
+        type: actionType.SET_LOOP, 
+        payload: state,
+    }
+}

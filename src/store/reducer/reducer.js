@@ -3,6 +3,8 @@ import actionType from "../action/actionType"
 
 const initState = {
   banner : [],
+  isShuffle: false,
+  isLoop: false,
 }
 
 const appReducer = (state = initState, action) => {
@@ -14,6 +16,16 @@ const appReducer = (state = initState, action) => {
             banner: action.payload?.find(item => item.sectionType === 'banner')?.items || null
           }
       }
+      case actionType.SET_SHUFFLE_SONGS_IN_ALBUM:
+        return {
+          ...state, 
+          isShuffle: action.payload,
+        }
+      case actionType.SET_LOOP:
+        return {
+          ...state,
+          isLoop: action.payload,
+        }
       default:
           return state
   }

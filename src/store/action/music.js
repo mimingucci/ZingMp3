@@ -15,10 +15,10 @@ export const setSongId=(songId)=>{
     }
 }
 
-export const setCurrentSongId=(songId, linkSong,linkImage, songName, artists, previousSong, nextSong)=>{
+export const setCurrentSongId=(songId, linkSong,linkImage, songName, artists)=>{
     return {
         type: actionType.SET_CURRENT_SONG_ID,
-        payload: {songId, linkSong, linkImage, songName, artists, previousSong, nextSong},
+        payload: {songId, linkSong, linkImage, songName, artists},
     }
 }
 
@@ -33,9 +33,9 @@ export const listSongsInAlbum=(listSongs)=>{
         payload: listSongs,
     }
 }
-export const updateCurrentSongInAlbum=( currentSongIndex ,currentSongId, linkCurrentSong, image, songName, artists)=>{
+export const updateCurrentSongInAlbum=( currentSongId, linkCurrentSong, image, songName, artists)=>{
     return {
         type: actionType.UPDATE_CURRENT_SONG_IN_ALBUM,
-        payload:{currentSongIndex ,currentSongId, linkCurrentSong, image, songName, artists},
+        payload:{currentSongId, linkCurrentSong, image, songName, artists},
     }
 }

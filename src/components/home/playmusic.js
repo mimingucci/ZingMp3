@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, memo } from "react";
 import { getCurrentSong } from "../../store/action/music";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -34,14 +34,14 @@ const Playmusic = ({setIsShowRightSidebar}) => {
     artists,
     linkCurrentSong,
     isPlaying,
-    prevSong,
-    nextSong,
+    // prevSong,
+    // nextSong,
     listSongs,
   } = useSelector((state) => state.music);
+  const {isShuffle, isLoop}=useSelector((state)=>state.app);
   const [currentSong, setCurrentSong] = useState(currentSongId);
   const [volume, setVolume] = useState(50);
   const [songInfo, setSongInfo] = useState(null);
-  const [isShuffle, setIsShuffle]=useState(false);
   const [currentTime, setcurrentTime] = useState(0);
   const [song, setSong] = useState(new Audio());
   const thumbRef = useRef();
@@ -95,90 +95,87 @@ const Playmusic = ({setIsShowRightSidebar}) => {
     //setCurSeconds(Math.round(percent * songInfo.duration / 100))
   };
 
-  const handleClickNextSong = async() => {
-    nextSongInfo = await apis.getSong(listSongs[nextSong]);
-   // previousSongInfo = await apis.getSong(listSongs[prevSong]);
-    nextSongLink = await apis.apiGetSong(listSongs[nextSong]);
-    //previousSongLink = await apis.apiGetSong(listSongs[prevSong]);
-    console.log(nextSongInfo);
-    //setCurrentSong(nextSongInfo?.data?.data.encodeId);
-    // dispatch(
-    //   actions.updateCurrentSongInAlbum(
-    //     nextSong,
-    //     nextSongInfo?.data?.data.encodeId,
-    //     nextSongLink?.data?.data["128"],
-    //     nextSongInfo?.data?.data.thumbnailM,
-    //     nextSongInfo?.data?.data.title,
-    //     nextSongInfo?.data?.data.artists
-    //   )
-      
-    //);
-    
+   const handleClickNextSong = async() => {
+      let currentSongIndex;
+      song.pause();
+      for(let i=0; i<listSongs.length; i++){
+        if(listSongs[i].encodeId===currentSongId){
+          currentSongIndex=i;
+          break;
+        }
+      }
+      if(currentSongIndex==listSongs.length-1){
+        const response=await apis.apiGetSong(listSongs[0].encodeId);
+        dispatch(actions.updateCurrentSongInAlbum(listSongs[0].encodeId, response?.data?.data['128'], listSongs[0].thumbnailM, listSongs[0].title, listSongs[0].artists));
+      }else{
+        const response=await apis.apiGetSong(listSongs[currentSongIndex+1].encodeId);
+        dispatch(actions.updateCurrentSongInAlbum(listSongs[currentSongIndex+1].encodeId, response?.data?.data['128'], listSongs[currentSongIndex+1].thumbnailM, listSongs[currentSongIndex+1].title, listSongs[currentSongIndex+1].artists))
+      }
+     //console.log(listSongs)
 
-  };
+   };
 
   useEffect(()=>{
-    console.log('first');
+    const callApiInitial=async()=>{
+      const [response1, response2]=await Promise.all([apis.getSong(currentSongId), apis.apiGetSong(currentSongId)]) ;
+      dispatch(actions.setCurrentSongId(response1?.data?.data.encodeId, response2?.data?.data['128'], response1?.data?.data.thumbnailM, response1?.data?.data.title, response1?.data?.data.artists));
+      dispatch(actions.play(false));
+    }
+    callApiInitial();
   }, [])
 
-  const handleClickPreviousSong = () => {
-    dispatch(
-      actions.updateCurrentSongInAlbum(
-        prevSong,
-        previousSongInfo?.data?.data.encodeId,
-        previousSongLink?.data?.data["128"],
-        previousSongInfo?.data?.data.thumbnailM,
-        previousSongInfo?.data?.data.title,
-        previousSongInfo?.data?.data.artists
-      )
-    );
+   const handleClickPreviousSong = async() => {
+    let currentSongIndex;
+    song.pause();
+    for(let i=0; i<listSongs.length; i++){
+      if(listSongs[i].encodeId===currentSongId){
+        currentSongIndex=i;
+        break;
+      }
+    }
+    if(currentSongIndex==0){
+      const response=await apis.apiGetSong(listSongs[listSongs.length-1].encodeId);
+      dispatch(actions.updateCurrentSongInAlbum(listSongs[listSongs.length-1].encodeId, response?.data?.data['128'], listSongs[listSongs.length-1].thumbnailM, listSongs[listSongs.length-1].title, listSongs[listSongs.length-1].artists));
+    }else{
+      const response=await apis.apiGetSong(listSongs[currentSongIndex-1].encodeId);
+      dispatch(actions.updateCurrentSongInAlbum(listSongs[currentSongIndex-1].encodeId, response?.data?.data['128'], listSongs[currentSongIndex-1].thumbnailM, listSongs[currentSongIndex-1].title, listSongs[currentSongIndex-1].artists))
+    }
   };
 
-  const handleSetShuffle=()=>{
-    if(!isShuffle){
-      const handleRandomSong=()=>{
-        const lengthAlbum=listSongs.length;
-        const randomSongIndex=Math.random()*lengthAlbum-1;
-        while(listSongs[randomSongIndex]===currentSongId){
-           randomSongIndex=Math.random()*lengthAlbum-1;
-        }
-        dispatch(actions.setSongId(listSongs[randomSongIndex]));
-      }
-      song.addEventListener('ended', handleRandomSong);
-    }
-    setIsShuffle(!isShuffle);
-  }
 
-  useEffect( ()=>{
+  useEffect(()=>{
     const handleEnded=()=>{
       song.pause();
       dispatch(actions.play(false));
-      alert('ended');
     }
     song.addEventListener("ended", handleEnded);
   },[song])
 
   useEffect(()=>{
-    // console.log("change")
-    // const randomIndex = Math.round(Math.random() * songs?.length) - 1
-    // dispatch(actions.setCurSongId(songs[randomIndex].encodeId))
-    // dispatch(actions.play(true))
-  } , [isShuffle])
+    const handleEnded=async()=>{
+      song.pause();
+      let randomNumber=Math.round(Math.random()*listSongs.length)-1;
+      while(listSongs[randomNumber].encodeId===currentSongId){
+        randomNumber=Math.round(Math.random()*listSongs.length)-1;
+      }
+      const response=await apis.apiGetSong(listSongs[randomNumber].encodeId);
+      dispatch(actions.updateCurrentSongInAlbum(listSongs[randomNumber].encodeId, response?.data?.data['128'], listSongs[randomNumber].thumbnailM, listSongs[randomNumber].title, listSongs[randomNumber].artists));
+    }
+    song.addEventListener("ended", handleEnded);
+  }, [isShuffle])
+
+  useEffect(()=>{
+    const handleEnded=()=>{
+      song.currentTime=0;
+      dispatch(actions.play(true));
+   }
+    song.addEventListener("ended", handleEnded);
+  } , [isLoop])
 
   useEffect(() => {
     console.log(currentSong);
   }, [currentSong]);
-  // useEffect(() => {
-  //   console.log("2");
-  //   setSong(new Audio(linkCurrentSong));
-  //   song.load();
-  //   play();
-  //   dispatch(actions.play(true));
-  //   return () => {
-  //     intervalId && clearInterval(intervalId);
-  //     song.pause();
-  //   };
-  // }, []);
+  
   useEffect(() => {
     song.volume = volume / 100
 }, [volume])
@@ -240,7 +237,7 @@ const Playmusic = ({setIsShowRightSidebar}) => {
       </div>
       <div className="w-[40%] h-full">
         <div className="flex justify-center gap-7 items-center h-1/2">
-          <CiShuffle size={20} className={`cursor-pointer ${isShuffle ? 'text-main-500': ''}`} onClick={handleSetShuffle}/>
+          <CiShuffle size={20} className={`cursor-pointer ${isShuffle ? 'text-main-500': ''}`} onClick={()=>dispatch(actions.setShuffle(!isShuffle))}/>
           <AiOutlineArrowLeft
             size={20}
             onClick={handleClickPreviousSong}
@@ -261,7 +258,7 @@ const Playmusic = ({setIsShowRightSidebar}) => {
             onClick={handleClickNextSong}
             className="cursor-pointer"
           />
-          <CiRepeat size={24} />
+          <CiRepeat size={24} className={`cursor-pointer ${isLoop ? 'text-main-500': ''}`} onClick={()=>dispatch(actions.setLoop(!isLoop))}/>
         </div>
         <div className="w-full h-1/2 flex items-center text-[12px] text-text-200">
         <span className=''>{currentTime && moment.utc(currentTime * 1000).format('mm:ss')}</span>
@@ -298,4 +295,4 @@ const Playmusic = ({setIsShowRightSidebar}) => {
   );
 };
 
-export default Playmusic;
+export default memo(Playmusic);

@@ -3,7 +3,7 @@ import {NavbarLeft, NavbarRight,Main , Playmusic } from '../../components/home/i
 const Home = () => {
   
   return (
-    <div className='h-screen'>
+    <div className='w-full'>
     {/* <div className='flex h-full'>
         <NavbarLeft/>
         <Main/>

@@ -36,3 +36,10 @@ export const setLoop=(state)=>{
         payload: state,
     }
 }
+
+export const setPlaylist=(playlist)=>{
+    return {
+        type: actionType.SET_PLAYLIST,
+        payload: playlist,
+    }
+}

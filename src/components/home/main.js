@@ -1,29 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
+import Scrollbars from "react-custom-scrollbars-2";
+
+import * as apis from '../../getApi'
 import Header from "./header";
 import { useSelector, useDispatch } from "react-redux";
-import { getHome } from "../../getApi/home";
 import Slider from "./slider";
-function Main() {
-  // useEffect(async()=>{const api=async()=>{
-  //   const response=await getHome();
-  //   const arr=response.data.data.items.find(item=>item.sectionType==='banner').items;
-  //   for(let i=0; i<arr.length; i++){
-  //       banner.push(arr[i].banner)
-  // }
-
-  // // (async()=>{
-  // //     const res=await api();
-  // //     const arr=res.data.data.items.find(item=>item.sectionType==='banner').items;
-  // //     //console.log(arr)
-  // //     //const [...spirit]=arr;
-  // //     for(let i=0; i<arr.length; i++){
-  // //       banner.push(arr[i].banner)
-  // //     }
-  //   }}, []);
-  const { banner } = useSelector((state) => state.app);
-  console.log(banner);
+import Section from "./Section";
+function Main({children}) {
+  const [data, setData] = useState(null);
+  useEffect(()=>{
+       const callApi=async()=>{
+        const response=await apis.getHome();
+        console.log(response?.data?.data);
+        setData(response?.data?.data);
+       }
+       callApi();
+    }, []);
+  const newSongEveryDay=data?.items[5];
   return (
     <div className="w-fit h-full overflow-y-hidden flex-1 bg-[#170f23]">
+         <Scrollbars autoHide style={{ width: "100%", height: "85%" }}>
       <Header />
       {/* <ul className='h-32 w-full block bg-red-800'>
        {banner.map((item, index) => (
@@ -39,7 +35,18 @@ function Main() {
                
       </ul> */}
       <Slider />
-    </div>
+      <div className="px-[60px] h-full">
+      {children}
+      
+        
+      
+        
+      <Section sectionType={newSongEveryDay} artists={true} sortDescription={false}/>
+      </div> 
+       {/* <Section sectionType={data?.items[4]} artists={false} sortDescription={true}/> */}
+    </Scrollbars>
+    </div> 
+    
   );
 }
 

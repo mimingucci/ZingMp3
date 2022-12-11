@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
+import { useSelector } from 'react-redux'
+
 import { AlbumMain } from '../../components/album'
 import {NavbarLeft, NavbarRight, Playmusic} from '../../components/home'
 
 const Album = () => {
     const [isShowRightSidebar, setIsShowRightSidebar] = useState(true);
+    
     return (
         <div className='h-screen overflow-x-hidden'>
         <div className='flex h-full'>

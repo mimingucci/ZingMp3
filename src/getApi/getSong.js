@@ -36,3 +36,15 @@ export const apiGetDetaiPlaylist = async(pid) => {
         return error
     }
 }
+
+export const apiGetNewRelease=async()=>{
+    try {
+        const response = await axios({
+            url: '/newreleasechart',
+            method: 'get',
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}

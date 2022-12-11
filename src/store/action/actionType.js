@@ -8,6 +8,7 @@ const actionType={
     SET_SONG:'SET_SONG',
     SET_SHUFFLE_SONGS_IN_ALBUM:'SET_SHUFFLE_SONGS_IN_ALBUM',
     SET_LOOP: 'SET_LOOP',
+    SET_PLAYLIST:'SET_PLAYLIST',
 }
 
 export default actionType

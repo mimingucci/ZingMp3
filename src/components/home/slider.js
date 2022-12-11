@@ -9,7 +9,6 @@ function SlickSlider() {
      const {banner}=useSelector(state=>state.app)
     const handleClickBanner=(item)=>{
        if(item.type===4){
-        console.log(item)
         const albumLink=item?.link?.split('.')[0];
         navigate(albumLink)
        }

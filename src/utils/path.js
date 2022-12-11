@@ -1,6 +1,6 @@
 const path={
     PUBLIC: '/',
-    HOME: '',
+    HOME: 'home',
     LOGIN: 'login',
     STAR: '*',
     MY_MUSIC: 'mymusic',

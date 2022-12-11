@@ -5,6 +5,7 @@ const initState = {
   banner : [],
   isShuffle: false,
   isLoop: false,
+  playlist:[],
 }
 
 const appReducer = (state = initState, action) => {

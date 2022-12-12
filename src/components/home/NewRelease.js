@@ -11,6 +11,7 @@ const NewRelease = () => {
         const callApi=async()=>{
             const response=await apis.apiGetNewRelease();
             setData(response?.data?.data);
+            console.log(response?.data?.data);
           }
           callApi();
     }, [])

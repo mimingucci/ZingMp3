@@ -22,10 +22,6 @@ const SongItem = ({thumbnail, title, artists, timeRelease, songId, playlist}) =>
   }
   return (
     <div
-            // onClick={() => {
-            //     dispatch(actions.setCurSongId(sid))
-            //     dispatch(actions.play(true))
-            // }}
             className={`w-full flex p-[10px] gap-[10px] justify-between items-center rounded-md cursor-pointer hover:bg-main-100 ${songId===currentSongId ? 'bg-main-100':''}`}
             onClick={handleClickSong}
         >

@@ -1,6 +1,8 @@
 import React from 'react'
-import {NavbarLeft, NavbarRight,Main , Playmusic, NewRelease } from '../../components/home/index'
-import Scrollbars from 'react-custom-scrollbars-2'
+import {NavbarLeft, NavbarRight,Main , Playmusic, NewRelease} from '../../components/home/index'
+import { Outlet } from 'react-router-dom'
+
+import * as apis from '../../getApi'
 const Public = () => {
   
   return (

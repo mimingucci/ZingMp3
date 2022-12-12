@@ -1,15 +1,24 @@
 import React, {useRef, useState, memo} from 'react'
+import * as apis from '../../getApi'
 import icons from '../../utils/icons'
+import * as actions from '../../store/action'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 const {AiOutlineHeart, BsFillPlayFill, BsThreeDots}=icons;
-const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link}) => {
-
+const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, style, isSong=false}) => {
+    const dispatch=useDispatch();
     const [isHover, setIsHover] = useState(false);
     const navigate =useNavigate();
     const imageRef = useRef();
-    console.log(link)
-    const toAlbumPage=()=>{
-       navigate(link);
+    const toAlbumPage=async()=>{
+       if(isSong){
+         const [response1, response2]=await Promise.all([apis.getSong(link), apis.apiGetSong(link)]);
+         console.log('test', response1, response2);
+         dispatch(actions.setCurrentSongId(link, response2?.data?.data['128'], response1?.data?.data.thumbnailM, response1?.data?.data.title, response1?.data?.data.artistsNames));
+         dispatch(actions.play(true));
+       }else{
+           navigate(link);
+       }
     }
 
     const toAlbumPageAndPlay=()=>{
@@ -27,7 +36,7 @@ const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link}) =>
         imageRef.current.classList?.add('animate-scale-down-image')
     }
   return (
-    <div className='flex flex-col gap-3 flex-auto justify-start w-1/5 text-sm cursor-pointer'
+    <div className={`flex flex-col gap-3 flex-auto justify-start ${style ? style:'w-1/5'} text-sm cursor-pointer`}
     onClick={toAlbumPage}
     >
         <div 

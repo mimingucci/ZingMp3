@@ -43,3 +43,20 @@ export const setPlaylist=(playlist)=>{
         payload: playlist,
     }
 }
+
+export const setEvents=(events)=>{
+    return {
+        type: actionType.SET_EVENTS,
+        payload: events,
+    }
+}
+
+export const setChart=(weekChart, chart)=>{
+    return {
+        type: actionType.SET_CHART,
+        payload:{
+            weekChart,
+            chart,
+        }
+    }
+}

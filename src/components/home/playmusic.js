@@ -6,11 +6,6 @@ import icons from "../../utils/icons";
 import * as actions from "../../store/action";
 import * as apis from "../../getApi";
 var intervalId;
-let nextSongInfo;
-let previousSongInfo;
-let nextSongLink;
-let previousSongLink;
-let duration;
 const {
   AiOutlineHeart,
   BsThreeDots,
@@ -26,7 +21,7 @@ const {
   BsMusicNoteList,
 } = icons;
 const Playmusic = ({setIsShowRightSidebar}) => {
-  console.log('header')
+  
   const {
     currentSongId,
     image,
@@ -34,8 +29,6 @@ const Playmusic = ({setIsShowRightSidebar}) => {
     artists,
     linkCurrentSong,
     isPlaying,
-    // prevSong,
-    // nextSong,
     listSongs,
   } = useSelector((state) => state.music);
   const {isShuffle, isLoop}=useSelector((state)=>state.app);
@@ -49,7 +42,6 @@ const Playmusic = ({setIsShowRightSidebar}) => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    console.log("1");
     const testGetSong = async () => {
       song.pause();
       dispatch(actions.play(false));
@@ -120,6 +112,7 @@ const Playmusic = ({setIsShowRightSidebar}) => {
       const [response1, response2]=await Promise.all([apis.getSong(currentSongId), apis.apiGetSong(currentSongId)]) ;
       dispatch(actions.setCurrentSongId(response1?.data?.data.encodeId, response2?.data?.data['128'], response1?.data?.data.thumbnailM, response1?.data?.data.title, response1?.data?.data.artists));
       dispatch(actions.play(false));
+      song.pause();
     }
     callApiInitial();
   }, [])
@@ -173,7 +166,7 @@ const Playmusic = ({setIsShowRightSidebar}) => {
   } , [isLoop])
 
   useEffect(() => {
-    console.log(currentSong);
+    //console.log(currentSong);
   }, [currentSong]);
   
   useEffect(() => {
@@ -181,7 +174,6 @@ const Playmusic = ({setIsShowRightSidebar}) => {
 }, [volume])
 
   useEffect(() => {
-    console.log("3");
     song.load();
     if (!isPlaying) {
       song.volume=volume/100;
@@ -195,7 +187,6 @@ const Playmusic = ({setIsShowRightSidebar}) => {
   }, [song]);
 
   useEffect(() => {
-    console.log("4");
     if (isPlaying) {
       play();
       //const thumbEl = document.getElementById("thumb-progress");
@@ -211,7 +202,6 @@ const Playmusic = ({setIsShowRightSidebar}) => {
       intervalId && clearInterval(intervalId);
     }
     return () => {
-      console.log("cleaup function");
       intervalId && clearInterval(intervalId);
       song.pause();
     };

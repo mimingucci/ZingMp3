@@ -6,6 +6,9 @@ const initState = {
   isShuffle: false,
   isLoop: false,
   playlist:[],
+  events:[],
+  weekChart:[],
+  chart:{},
 }
 
 const appReducer = (state = initState, action) => {
@@ -26,6 +29,17 @@ const appReducer = (state = initState, action) => {
         return {
           ...state,
           isLoop: action.payload,
+        }
+      case actionType.SET_EVENTS:
+        return {
+          ...state,
+          events:[...action.payload],
+        }
+      case actionType.SET_CHART:
+        return {
+          ...state,
+          weekChart: [...action.payload.weekChart],
+          chart: {...action.payload.chart},
         }
       default:
           return state

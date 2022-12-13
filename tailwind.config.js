@@ -115,8 +115,14 @@ module.exports = {
         'scale-up-center': 'scale-up-center 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
         'scale-up-image': 'scale-up-image 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
         'scale-down-image': 'scale-down-image 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
+      },
+      flex: {
+        '4': '4 4 0%',
+        '6': '6 6 0%',
+        '3': '3 3 0%',
+        '7': '7 7 0%',
+        '5': '5 5 0%',
       }
-      
   },     
 },   
  

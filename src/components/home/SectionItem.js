@@ -13,7 +13,6 @@ const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, sty
     const toAlbumPage=async()=>{
        if(isSong){
          const [response1, response2]=await Promise.all([apis.getSong(link), apis.apiGetSong(link)]);
-         console.log('test', response1, response2);
          dispatch(actions.setCurrentSongId(link, response2?.data?.data['128'], response1?.data?.data.thumbnailM, response1?.data?.data.title, response1?.data?.data.artistsNames));
          dispatch(actions.play(true));
        }else{

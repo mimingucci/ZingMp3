@@ -15,9 +15,15 @@ const musicConfig={
   key: 'music',
   whitelist: ['currentSongId'],
 }
+
+const appConfig={
+  ...globalConfig,
+  key: 'history',
+  whitelist:['historySongs'],
+}
 const rootReducer=combineReducers(
     {
-       app : reducer,
+       app : persistReducer(appConfig, reducer),
        music : persistReducer(musicConfig, songReducer), 
     }
 )

@@ -9,6 +9,7 @@ const initState = {
   events:[],
   weekChart:[],
   chart:{},
+  historySongs:[],
 }
 
 const appReducer = (state = initState, action) => {
@@ -40,6 +41,25 @@ const appReducer = (state = initState, action) => {
           ...state,
           weekChart: [...action.payload.weekChart],
           chart: {...action.payload.chart},
+        }
+      case actionType.PUST_SONG_TO_HISTORY:
+        const historySong=[...state.historySongs];
+        
+        //console.log(action.payload);
+        if(historySong.length>=20){
+          historySong.shift();
+        }
+        for(let i=0; i<historySong.length; i++){
+          if(historySong[i]?.encodeId===action.payload.encodeId){
+            historySong.splice(i, 1);
+            break;
+          }
+        }
+        historySong.push(action.payload);
+        console.log(historySong);
+        return {
+          ...state,
+          historySongs: historySong,
         }
       default:
           return state

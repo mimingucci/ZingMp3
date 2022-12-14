@@ -6,6 +6,7 @@ import { FiSearch, FiMusic } from 'react-icons/fi'
 import { BsThreeDots, BsFillPlayFill, BsPauseFill, BsMusicNoteBeamed, BsDot, BsMusicNoteList, BsChevronRight, BsChevronLeft} from 'react-icons/bs'
 import { CiRepeat, CiShuffle, CiLineHeight } from 'react-icons/ci'
 import {SlVolumeOff, SlVolume1, SlVolume2} from 'react-icons/sl'
+import {GiAlarmClock} from 'react-icons/gi'
 const icons = {
     MdOutlineLibraryMusic,
     HiOutlineChartPie,
@@ -35,6 +36,7 @@ const icons = {
     BsMusicNoteList,
     BsChevronRight,
     BsChevronLeft,
+    GiAlarmClock,
 }
 
 export default icons

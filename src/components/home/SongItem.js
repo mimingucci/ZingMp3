@@ -19,6 +19,7 @@ const SongItem = ({thumbnail, title, artists, timeRelease, songId, playlist, sty
     dispatch(actions.setPlaylist(playlist));
     dispatch(actions.listSongsInAlbum(playlist));
     dispatch(actions.play(true));
+    dispatch(actions.pustSongToHistory(response1?.data?.data));
   }
   return (
     <div

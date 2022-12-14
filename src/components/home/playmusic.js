@@ -97,11 +97,14 @@ const Playmusic = ({setIsShowRightSidebar}) => {
         }
       }
       if(currentSongIndex==listSongs.length-1){
-        const response=await apis.apiGetSong(listSongs[0].encodeId);
+        const [response, res]=await Promise.all([apis.apiGetSong(listSongs[0].encodeId), apis.getSong(listSongs[0].encodeId)]);
         dispatch(actions.updateCurrentSongInAlbum(listSongs[0].encodeId, response?.data?.data['128'], listSongs[0].thumbnailM, listSongs[0].title, listSongs[0].artists));
+        dispatch(actions.pustSongToHistory(res));
+        console.log(res);
       }else{
-        const response=await apis.apiGetSong(listSongs[currentSongIndex+1].encodeId);
+        const [response, res]=await Promise.all([apis.apiGetSong(listSongs[currentSongIndex+1].encodeId), apis.getSong(listSongs[currentSongIndex+1].encodeId)]);
         dispatch(actions.updateCurrentSongInAlbum(listSongs[currentSongIndex+1].encodeId, response?.data?.data['128'], listSongs[currentSongIndex+1].thumbnailM, listSongs[currentSongIndex+1].title, listSongs[currentSongIndex+1].artists))
+        dispatch(actions.pustSongToHistory(res));
       }
      //console.log(listSongs)
 
@@ -127,11 +130,13 @@ const Playmusic = ({setIsShowRightSidebar}) => {
       }
     }
     if(currentSongIndex==0){
-      const response=await apis.apiGetSong(listSongs[listSongs.length-1].encodeId);
+      const [response, res]=await Promise.all([apis.apiGetSong(listSongs[listSongs.length-1].encodeId), apis.getSong(listSongs[listSongs.length-1].encodeId)]);
       dispatch(actions.updateCurrentSongInAlbum(listSongs[listSongs.length-1].encodeId, response?.data?.data['128'], listSongs[listSongs.length-1].thumbnailM, listSongs[listSongs.length-1].title, listSongs[listSongs.length-1].artists));
+      dispatch(actions.pustSongToHistory(res));
     }else{
-      const response=await apis.apiGetSong(listSongs[currentSongIndex-1].encodeId);
+      const [response, res]=await Promise.all([apis.apiGetSong(listSongs[currentSongIndex-1].encodeId), apis.getSong(listSongs[currentSongIndex-1].encodeId)]);
       dispatch(actions.updateCurrentSongInAlbum(listSongs[currentSongIndex-1].encodeId, response?.data?.data['128'], listSongs[currentSongIndex-1].thumbnailM, listSongs[currentSongIndex-1].title, listSongs[currentSongIndex-1].artists))
+      dispatch(actions.pustSongToHistory(res));
     }
   };
 
@@ -151,8 +156,9 @@ const Playmusic = ({setIsShowRightSidebar}) => {
       while(listSongs[randomNumber].encodeId===currentSongId){
         randomNumber=Math.round(Math.random()*listSongs.length)-1;
       }
-      const response=await apis.apiGetSong(listSongs[randomNumber].encodeId);
+      const [response, res]=await Promise.all([apis.apiGetSong(listSongs[randomNumber].encodeId), apis.getSong(listSongs[randomNumber].encodeId)]);
       dispatch(actions.updateCurrentSongInAlbum(listSongs[randomNumber].encodeId, response?.data?.data['128'], listSongs[randomNumber].thumbnailM, listSongs[randomNumber].title, listSongs[randomNumber].artists));
+      dispatch(actions.pustSongToHistory(res));
     }
     song.addEventListener("ended", handleEnded);
   }, [isShuffle])

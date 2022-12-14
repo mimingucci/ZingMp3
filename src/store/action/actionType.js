@@ -11,6 +11,7 @@ const actionType={
     SET_PLAYLIST:'SET_PLAYLIST',
     SET_EVENTS:'SET_EVENTS',
     SET_CHART:'SET_CHART',
+    PUST_SONG_TO_HISTORY:'PUST_SONG_TO_HISTORY',
 }
 
 export default actionType

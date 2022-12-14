@@ -60,3 +60,12 @@ export const setChart=(weekChart, chart)=>{
         }
     }
 }
+
+export const pustSongToHistory=(song)=>{
+     //const song=await apis.apiGetSong(songId);
+     //console.log(song)
+     return{
+        type: actionType.PUST_SONG_TO_HISTORY,
+        payload: song,
+     }
+}

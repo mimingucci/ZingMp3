@@ -20,7 +20,7 @@ const AlbumMain = () => {
   useEffect(() => {
     const getDetailPlaylist = async () => {
       const response = await apis.apiGetDetaiPlaylist(pid);
-      console.log(response?.data?.data?.song?.items);
+     // console.log(response?.data?.data?.song?.items);
       setAlbumDetail(response);
       dispatch(actions.listSongsInAlbum(response?.data?.data?.song?.items));
     };
@@ -43,6 +43,7 @@ const AlbumMain = () => {
       nextSong=index+1;
      }
     dispatch(actions.setCurrentSongId(item?.encodeId, response?.data?.data['128'],item?.thumbnailM, item?.title, item?.artists, previousSong, nextSong));
+    dispatch(actions.pustSongToHistory(item));
   };
 
   const playMusicByClickThumbImage=()=>{

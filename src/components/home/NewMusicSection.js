@@ -18,9 +18,11 @@ const NewMusicSection = ({thumbnail, title, artists, timeRelease, songId, order,
     const imageRef = useRef();
 
     const handleClickSong=async()=>{
-      const response=await apis.apiGetSong(songId);
+      const [response, res]=await Promise.all([apis.apiGetSong(songId), apis.getSong(songId)]);
       dispatch(actions.setCurrentSongId(songId, response?.data?.data['128'], thumbnail, title, artists));
       dispatch(actions.play(true));
+      //console.log('res', res)
+      dispatch(actions.pustSongToHistory(res?.data?.data));
     }
 
     const handleHover = () => {

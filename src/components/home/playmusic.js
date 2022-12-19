@@ -207,6 +207,7 @@ const Playmusic = ({setIsShowRightSidebar}) => {
       song.pause();
       intervalId && clearInterval(intervalId);
     }
+    dispatch(actions.updatePositionOfSong(true, false));
     return () => {
       intervalId && clearInterval(intervalId);
       song.pause();

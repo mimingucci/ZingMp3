@@ -2,6 +2,7 @@ import React, { useEffect , useState} from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useSelector, useDispatch } from "react-redux";
 import icons from '../../utils/icons'
+import { Outlet } from "react-router-dom";
 
 import * as apis from '../../getApi'
 import * as actions from '../../store/action'
@@ -26,7 +27,7 @@ function Main({children}) {
            dispatch(actions.setEvents(response?.data?.data?.items.find((item)=>(item.sectionId==="hSlider" && item.sectionType==='event')).items));
            dispatch(actions.setChart(response?.data?.data?.items.find(item=>(item.sectionType==="weekChart")).items, response?.data?.data?.items.find(item=>(item.sectionId==="hZC" && item.sectionType==="RTChart"))));
         }
-        console.log(response);
+        console.log('home',response);
        }
        callApi();
     }, []);
@@ -34,9 +35,9 @@ function Main({children}) {
     <div className="w-fit h-full overflow-y-hidden flex-1 bg-[#170f23]">
          <Scrollbars autoHide style={{ width: "100%", height: "85%" }}>
       <Header />
-      <Slider />
-      <div className="px-[60px] h-full">
-      {children}
+      {children } 
+      { <div className={`${children ? 'hidden' : 'w-full h-full'}`}><Slider />
+      {<div className="px-[60px] h-full">
       {data?.items.filter((dt, index)=>((dt.sectionId==='hArtistTheme') || (dt.sectionId==="hAutoTheme1") || (dt.sectionId==='h100') || (dt.sectionId==='hXone'))).map((i)=><Section sectionType={i} artists={false} sortDescription={true}/>)}
       <div className='text-text-100 mt-[50px]'>
       <div className='flex justify-between items-center mb-5'>
@@ -51,9 +52,12 @@ function Main({children}) {
       </div>
       <Chart/>
       <Event />
-      <Chart/>
+      
     </div>
       </div> 
+      }
+      </div>} 
+      
       
     </Scrollbars>
     </div> 

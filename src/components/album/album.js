@@ -13,20 +13,26 @@ import SongLoading from "../home/SongLoading";
 const { CiLineHeight, FiMusic, BsDot, BsFillPlayFill} = icons;
 const AlbumMain = () => {
   const dispatch = useDispatch();
-  const {currentSongId, isPlaying}=useSelector((state)=>state.music);
+  const {currentSongId, isPlaying, isInAlbum, isInPlaylist}=useSelector((state)=>state.music);
   let { pid } = useParams();
   const [currentAlbumId, setCurrentAlbumId] = useState(pid);
   const [albumDetail, setAlbumDetail] = useState(null);
+
   useEffect(() => {
     const getDetailPlaylist = async () => {
       const response = await apis.apiGetDetaiPlaylist(pid);
      // console.log(response?.data?.data?.song?.items);
       setAlbumDetail(response);
+     
       dispatch(actions.listSongsInAlbum(response?.data?.data?.song?.items));
     };
     getDetailPlaylist();
   }, [pid]);
- 
+  
+  // useEffect(()=>{
+  //     dispatch(actions.updatePositionOfSong(
+  //        false, false));
+  // }, [isInPlaylist])
   const handleClickSong = async (item, index) => {
     let previousSong;
     let nextSong;
@@ -42,7 +48,7 @@ const AlbumMain = () => {
      }else{
       nextSong=index+1;
      }
-    dispatch(actions.setCurrentSongId(item?.encodeId, response?.data?.data['128'],item?.thumbnailM, item?.title, item?.artists, previousSong, nextSong));
+    dispatch(actions.setCurrentSongId(item?.encodeId, response?.data?.data['128'],item?.thumbnailM, item?.title, item?.artists));
     dispatch(actions.pustSongToHistory(item));
   };
 
@@ -66,7 +72,7 @@ const AlbumMain = () => {
             />
              <div className={`absolute z-10 top-0 left-0 bottom-0 right-0 hover:bg-[rgba(0,0,0,0.3)] text-white flex items-center justify-center ${isPlaying && 'rounded-full'}`}>
                         <span className='p-3 border border-white rounded-full'>
-                            {isPlaying ? <SongLoading /> : <BsFillPlayFill size={30} />}
+                            {isPlaying && isInAlbum ? <SongLoading /> : <BsFillPlayFill size={30} />}
                         </span>
                     </div>
           </div>

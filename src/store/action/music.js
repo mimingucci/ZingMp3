@@ -39,3 +39,10 @@ export const updateCurrentSongInAlbum=( currentSongId, linkCurrentSong, image, s
         payload:{currentSongId, linkCurrentSong, image, songName, artists},
     }
 }
+
+export const updatePositionOfSong=(isInAlbum, isInPlaylist)=>{
+    return {
+        type: actionType.UPDATE_POSITION_OF_SONG,
+        payload: {isInAlbum, isInPlaylist},
+    }
+}

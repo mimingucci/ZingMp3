@@ -7,7 +7,7 @@ const initState={
     songName:'',
     artists:[],
     listSongs:[],
-    isInAlbum: false,
+    isInAlbum: true,
     isInPlaylist: false,
 }
 
@@ -22,7 +22,7 @@ const songReducer = (state=initState, action) => {
             }
         }
         case actionType.SET_CURRENT_SONG_ID:
-            
+           
             return {
                 ...state,
                 currentSongId: action.payload.songId || null,
@@ -37,6 +37,7 @@ const songReducer = (state=initState, action) => {
                 isPlaying: action.payload,
             }
         case actionType.SET_LIST_SONGS_IN_ALBUM:
+            console.log(action.payload)
             return {
                 ...state,
                 listSongs: [...action.payload],
@@ -56,6 +57,12 @@ const songReducer = (state=initState, action) => {
             return {
                 ...state,
                 currentSongId: action.payload,
+            }
+        case actionType.UPDATE_POSITION_OF_SONG:
+            return {
+                ...state, 
+                isInAlbum: action.payload.isInAlbum, 
+                isInPlaylist: action.payload.isInPlaylist,
             }
         default:
             return state

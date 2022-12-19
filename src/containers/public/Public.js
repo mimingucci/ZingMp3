@@ -9,9 +9,10 @@ const Public = () => {
     <div className='h-screen'>
         <div className='flex h-full'>
             <NavbarLeft/>
-            <Main>
-              <NewRelease/>
+             <Main>
+              <Outlet/>
             </Main>
+          
             <NavbarRight/>
         </div>
         <div className='fixed bottom-0 right-0 left-0 h-[90px]'>

@@ -12,6 +12,8 @@ const actionType={
     SET_EVENTS:'SET_EVENTS',
     SET_CHART:'SET_CHART',
     PUST_SONG_TO_HISTORY:'PUST_SONG_TO_HISTORY',
+    UPDATE_POSITION_OF_SONG:'UPDATE_POSITION_OF_SONG',
+    
 }
 
 export default actionType

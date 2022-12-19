@@ -5,6 +5,8 @@ const path={
     STAR: '*',
     MY_MUSIC: 'mymusic',
     ALBUM__TITLE__PID: 'album/:title/:pid',
-    PLAYLIST__TITLE__PID: 'playlist/:title/:pid'
+    PLAYLIST__TITLE__PID: 'playlist/:title/:pid',
+    API_SEARCH_ALL:'tim-kiem',
+    ALL:'tat-ca',
 }
 export default path

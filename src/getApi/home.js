@@ -12,3 +12,18 @@ export const getHome = async()=>{
        return error
     }
 }
+
+export const apiSearch=async(keyword)=>{
+    try {
+        const response=await axios(
+            {
+                url:'/search',
+                method:'get',
+                params:{keyword}
+            }
+        );
+        return response;
+    } catch (error) {
+        return error;
+    }
+}

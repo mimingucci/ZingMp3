@@ -56,7 +56,6 @@ const appReducer = (state = initState, action) => {
           }
         }
         historySong.push(action.payload);
-        console.log(historySong);
         return {
           ...state,
           historySongs: historySong,

@@ -10,6 +10,7 @@ const initState = {
   weekChart:[],
   chart:{},
   historySongs:[],
+  searchdata:{},
 }
 
 const appReducer = (state = initState, action) => {
@@ -59,6 +60,11 @@ const appReducer = (state = initState, action) => {
         return {
           ...state,
           historySongs: historySong,
+        }
+      case actionType.SET_DATA_SEARCH:
+        return {
+          ...state,
+          searchdata:{...action.payload},
         }
       default:
           return state

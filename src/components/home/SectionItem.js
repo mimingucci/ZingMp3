@@ -61,7 +61,8 @@ const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, sty
         </div>
         <span className='flex flex-col text-left'>
                 <span className='font-semibold'>{title}</span>
-                <span className='text-text-200'>{artistsNames}</span>
+                <span className='text-text-200'>{artistsNames}
+                </span>
                 {<span className='text-text-200'>{sortDescription?.length >= 40 ? `${sortDescription?.slice(0, 40)}...` : sortDescription}</span>}
             </span>
     </div>

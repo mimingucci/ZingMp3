@@ -69,3 +69,10 @@ export const pustSongToHistory=(song)=>{
         payload: song,
      }
 }
+
+export const searchdata=(response)=>{
+    return {
+        type: actionType.SET_DATA_SEARCH,
+        payload: response,
+    }
+}

@@ -13,7 +13,7 @@ const actionType={
     SET_CHART:'SET_CHART',
     PUST_SONG_TO_HISTORY:'PUST_SONG_TO_HISTORY',
     UPDATE_POSITION_OF_SONG:'UPDATE_POSITION_OF_SONG',
-    
+    SET_DATA_SEARCH:'SET_DATA_SEARCH',
 }
 
 export default actionType

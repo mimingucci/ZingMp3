@@ -19,7 +19,7 @@ const musicConfig={
 const appConfig={
   ...globalConfig,
   key: 'history',
-  whitelist:['historySongs'],
+  whitelist:['historySongs', 'isInSearchPage', 'isInMainPage', 'isInArtistsPage'],
 }
 const rootReducer=combineReducers(
     {

@@ -76,3 +76,10 @@ export const searchdata=(response)=>{
         payload: response,
     }
 }
+
+export const setCurrentPage=(isInMainPage, isInSearchPage, isInArtistsPage)=>{
+    return {
+        type: actionType.SET_CURRENT_PAGE,
+        payload:{isInMainPage, isInSearchPage, isInArtistsPage},
+    }
+}

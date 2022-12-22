@@ -51,7 +51,7 @@ const NavbarRight = () => {
         </div>
         <div className='flex flex-col text-left px-2'>
           <span className='text-[14px] font-semibold'>{songName.length>20?`${songName.slice(0, 20)}...`:songName}</span>
-          <span className='text-[12px] text-[#ced5e3] font-medium'>{artists.map(artist=>artist.name).join(', ')}</span>
+          <span className='text-[12px] text-[#ced5e3] font-medium'>{artists?.map(artist=>artist.name).join(', ')}</span>
         </div>
       </div>
       <div className='px-[12px]'>

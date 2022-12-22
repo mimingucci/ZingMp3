@@ -20,6 +20,7 @@ const Header = () => {
       const response=await apis.apiSearch(value);
       //console.log(response);
       dispatch(actions.searchdata(response.data.data));
+      dispatch(actions.setCurrentPage(false, true, false));
       navigate('/tim-kiem/tat-ca');
     }
   }

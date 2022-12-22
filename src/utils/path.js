@@ -8,5 +8,6 @@ const path={
     PLAYLIST__TITLE__PID: 'playlist/:title/:pid',
     API_SEARCH_ALL:'tim-kiem',
     ALL:'tat-ca',
+    ARTISTS: ':artists',
 }
 export default path

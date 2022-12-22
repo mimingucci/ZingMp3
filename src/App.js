@@ -7,7 +7,8 @@ import {useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import Album from './containers/public/Album';
 import Public from './containers/public/Public';
-import { SearchAllPage } from './components/home';
+import { SearchAllPage} from './components/home';
+import Artists from './components/home/Artists';
 function App() {
   // const dispatch=useDispatch();
   // useEffect(()=> {dispatch(getHomeApi())}, [])
@@ -19,10 +20,10 @@ function App() {
     <div className="App">
      
       <Routes>
-        <Route path={path.PUBLIC} element={<Public/>}>
-          {/* <Route path={path.HOME} element={<Home/>} /> */}
-        {/* <Route path={path.STAR} element={<Home/>} /> */}
-         <Route path={path.API_SEARCH_ALL+'/'+path.ALL} element={<SearchAllPage />} />
+        <Route path={path.PUBLIC} element={<Public/>} >
+          <Route path={path.ARTISTS} element={<Artists />} />
+          {/* <Route path={path.STAR} element={<Home/>} /> */}
+          <Route path={path.API_SEARCH_ALL+'/'+path.ALL} element={<SearchAllPage />} />
         </Route>
         {/* <Route path={'/'+path.API_SEARCH_ALL+'/'+path.ALL}/> */}
          <Route path={'/'+path.ALBUM__TITLE__PID} element={<Album/>}/>

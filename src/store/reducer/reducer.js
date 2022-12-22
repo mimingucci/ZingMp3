@@ -11,6 +11,9 @@ const initState = {
   chart:{},
   historySongs:[],
   searchdata:{},
+  isInSearchPage:false,
+  isInMainPage: true,
+  isInArtistsPage:false,
 }
 
 const appReducer = (state = initState, action) => {
@@ -65,6 +68,13 @@ const appReducer = (state = initState, action) => {
         return {
           ...state,
           searchdata:{...action.payload},
+        }
+      case actionType.SET_CURRENT_PAGE:
+        return {
+          ...state,
+          isInMainPage: action.payload.isInMainPage,
+          isInSearchPage: action.payload.isInSearchPage,
+          isInArtistsPage: action.payload.isInArtistsPage,
         }
       default:
           return state

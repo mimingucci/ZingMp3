@@ -5,7 +5,7 @@ import * as actions from '../../store/action'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 const {AiOutlineHeart, BsFillPlayFill, BsThreeDots}=icons;
-const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, style, isSong=false}) => {
+const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, style, isSong=false, timeRelease=null}) => {
     const dispatch=useDispatch();
     const [isHover, setIsHover] = useState(false);
     const navigate =useNavigate();
@@ -47,10 +47,6 @@ const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, sty
         {isHover && <div className='absolute top-0 bottom-0 z-40 left-0 right-0 bg-overlay-30 rounded-lg text-white flex items-center justify-center gap-3 hover:bg-[rgba(0,0,0,0.3)]'>
                     <span><AiOutlineHeart size={25} /></span>
                     <span
-                        // onClick={(e) => {
-                        //     e.stopPropagation()
-                        //     navigate(link?.split('.')[0], { state: { playAlbum: true } })
-                        // }}
                         className='p-1 border border-white rounded-full'
                     >
                         <BsFillPlayFill size={35} />
@@ -64,6 +60,7 @@ const SectionItem = ({thumbnailM, title, sortDescription, artistsNames,link, sty
                 <span className='text-text-200'>{artistsNames}
                 </span>
                 {<span className='text-text-200'>{sortDescription?.length >= 40 ? `${sortDescription?.slice(0, 40)}...` : sortDescription}</span>}
+                {timeRelease && <span className='text-text-200'>{timeRelease}</span>}
             </span>
     </div>
   )

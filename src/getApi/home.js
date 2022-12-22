@@ -28,3 +28,32 @@ export const apiSearch=async(keyword)=>{
     }
 }
 
+export const getMv=async(id)=>{
+    try {
+        const response=await axios(
+            {
+                url:'/categorymv',
+                method:'get',
+                params: {id: id}
+            }
+        );
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getArtist=async(name)=>{
+    try {
+        const response=await axios(
+            {
+                url:'/artist',
+                method:'get',
+                params: {name: name}
+            }
+        );
+        return response;
+    } catch (error) {
+        return error;
+    }
+}

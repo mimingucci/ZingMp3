@@ -14,6 +14,7 @@ const initState = {
   isInSearchPage:false,
   isInMainPage: true,
   isInArtistsPage:false,
+  currentUrl:'/',
 }
 
 const appReducer = (state = initState, action) => {
@@ -75,6 +76,11 @@ const appReducer = (state = initState, action) => {
           isInMainPage: action.payload.isInMainPage,
           isInSearchPage: action.payload.isInSearchPage,
           isInArtistsPage: action.payload.isInArtistsPage,
+        }
+      case actionType.SET_CURRENT_URL:
+        return {
+          ...state, 
+          currentUrl: action.payload,
         }
       default:
           return state

@@ -28,11 +28,7 @@ const AlbumMain = () => {
     };
     getDetailPlaylist();
   }, [pid]);
-  
-  // useEffect(()=>{
-  //     dispatch(actions.updatePositionOfSong(
-  //        false, false));
-  // }, [isInPlaylist])
+ 
   const handleClickSong = async (item, index) => {
     let previousSong;
     let nextSong;

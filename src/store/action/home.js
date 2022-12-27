@@ -83,3 +83,10 @@ export const setCurrentPage=(isInMainPage, isInSearchPage, isInArtistsPage)=>{
         payload:{isInMainPage, isInSearchPage, isInArtistsPage},
     }
 }
+
+export const setCurrentUrl=(path)=>{
+    return {
+        type: actionType.SET_CURRENT_URL,
+        payload: path,
+    }
+}

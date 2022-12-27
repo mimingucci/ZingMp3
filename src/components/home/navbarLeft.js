@@ -2,9 +2,12 @@ import React from 'react'
 import Path from '../../utils/path'
 import {useNavigate, NavLink} from 'react-router-dom'
 import { sidebarMenu } from '../../utils/menus'
+import { useSelector } from 'react-redux'
 
 const NavbarLeft = () => {
-    const navigate=useNavigate()
+    const navigate=useNavigate();
+    const {currentUrl}=useSelector(state=>state.app);
+    console.log(currentUrl);
   return (
     <div className='w-[240px] bg-[#231b2e]'>
       <div className='w-full h-[70px] py-[15px] px-[25px] flex justify-start items-center cursor-pointer' onClick={()=>navigate(Path.HOME)}>
@@ -23,13 +26,13 @@ const NavbarLeft = () => {
     </g>
 </svg>
       </div>
-      <div className='block pl-[25px]'>
+      <div className='block'>
         {sidebarMenu.map(item=>
           <NavLink 
             to={item.path}
             key={item.path}
             end={item.end}
-            className='text-white flex items-center py-2 gap-1'
+            className={`text-white flex items-center py-2 gap-1 bg-main-100 pl-[25px] ${currentUrl.split('/')[0]===item.path ? 'border-l-4 border-main-500': ''}`}
             >
               {item.icons}
               <span>{item.text}</span>

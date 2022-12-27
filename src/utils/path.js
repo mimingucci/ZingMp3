@@ -9,5 +9,7 @@ const path={
     API_SEARCH_ALL:'tim-kiem',
     ALL:'tat-ca',
     ARTISTS: ':artists',
+    SONG: 'bai-hat',
+    PLAYLIST: 'playlist',
 }
 export default path

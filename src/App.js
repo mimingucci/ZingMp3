@@ -7,7 +7,8 @@ import {useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import Album from './containers/public/Album';
 import Public from './containers/public/Public';
-import { SearchAllPage} from './components/home';
+import { SearchAllPage, SearchSong, PlaylistSearch, ArtistsSearch} from './components/home';
+import { ZingChartPage } from './components/zingchart';
 import Artists from './components/home/Artists';
 function App() {
   // const dispatch=useDispatch();
@@ -22,8 +23,14 @@ function App() {
       <Routes>
         <Route path={path.PUBLIC} element={<Public/>} >
           <Route path={path.ARTISTS} element={<Artists />} />
+          <Route path='zing-chart' element={<ZingChartPage />}/>
           {/* <Route path={path.STAR} element={<Home/>} /> */}
-          <Route path={path.API_SEARCH_ALL+'/'+path.ALL} element={<SearchAllPage />} />
+          <Route path={path.API_SEARCH_ALL+'/'+path.ALL} element={<SearchAllPage />} >
+            <Route path={path.SONG} element={<SearchSong />}/>
+            <Route path={path.PLAYLIST} element={<PlaylistSearch />}/>
+            <Route path={path.ARTISTS} element={<ArtistsSearch />}/>
+          </Route>
+          {/* <Route path={path.API_SEARCH_ALL+'/'+path.ALL+'/'+path.SONG} element={<SearchAllPage />} /> */}
         </Route>
         {/* <Route path={'/'+path.API_SEARCH_ALL+'/'+path.ALL}/> */}
          <Route path={'/'+path.ALBUM__TITLE__PID} element={<Album/>}/>

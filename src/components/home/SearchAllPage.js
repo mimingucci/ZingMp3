@@ -6,27 +6,36 @@ import icons from "../../utils/icons";
 import SectionItem from "./SectionItem";
 import SongItem from "./SongItem";
 import Section from "./Section";
+import { Outlet } from "react-router-dom";
 
 import * as apis from "../../getApi";
 import * as actions from '../../store/action'
 import moment from "moment";
 import ArtistItem from "./ArtistItem";
+import { CiLineHeight } from "react-icons/ci";
 const { CiShuffle, BsChevronRight } = icons;
 
 const SearchAllPage = () => {
   const [isHover, setIsHover] = useState([false, false, false]);
-  const { searchdata } = useSelector((state) => state.app);
+  const { searchdata, currentUrl } = useSelector((state) => state.app);
+  const path=window.location.pathname;
+  //console.log(searchdata);
   const dispatch=useDispatch();
   useEffect(()=>{
     dispatch(actions.setCurrentPage(false, true));
+    dispatch(actions.setCurrentUrl(path));
     return ()=>dispatch(actions.setCurrentPage(true, false));
   }, [])
-  console.log("searchdata", searchdata);
+  
+
+  const dispatchUrl=(path)=>{
+    dispatch(actions.setCurrentUrl(path));
+  }
+  
 
   const imageRef0 = useRef(false);
   const imageRef1 = useRef(false);
   const imageRef2 = useRef(false);
-
   const handleHover = (index) => {
     const arr = [false, false, false];
     arr[index] = true;
@@ -68,23 +77,26 @@ const SearchAllPage = () => {
             Kết Quả Tìm Kiếm
           </div>
 
-          <div className="cursor-pointer text-[#b0aeb3] hover:text-text-100 border-solid border-main-500 border-b h-full">
-            <NavLink to="/tim-kiem/tat-ca">TẤT CẢ</NavLink>
+          <div className={`cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full ${currentUrl==='/tim-kiem/tat-ca'?'border-solid border-main-500 border-b': ''}`}>
+            <NavLink to="/tim-kiem/tat-ca" onClick={()=>dispatchUrl('/tim-kiem/tat-ca')}>TẤT CẢ</NavLink>
           </div>
-          <div className="cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full">
-            <NavLink to="bai-hat">BÀI HÁT</NavLink>
+          <div className={`cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full ${currentUrl==='/tim-kiem/tat-ca/bai-hat'?'border-solid border-main-500 border-b': ''}`}>
+            <NavLink to="bai-hat" onClick={()=>dispatchUrl('/tim-kiem/tat-ca/bai-hat')}>BÀI HÁT</NavLink>
           </div>
-          <div className="cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full">
-            <NavLink to="playlist">PLAYLIST/ALBUM</NavLink>
+          <div className={`cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full ${currentUrl==='/tim-kiem/tat-ca/playlist'?'border-solid border-main-500 border-b': ''}`}>
+            <NavLink to="playlist" onClick={()=>dispatchUrl('/tim-kiem/tat-ca/playlist')}>PLAYLIST/ALBUM</NavLink>
           </div>
-          <div className="cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full">
-            <NavLink to="artists">NGHỆ SĨ/OA</NavLink>
+          <div className={`cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full ${currentUrl==='/tim-kiem/tat-ca/artists'?'border-solid border-main-500 border-b': ''}`}>
+            <NavLink to="artists" onClick={()=>dispatchUrl('/tim-kiem/tat-ca/artists')}>NGHỆ SĨ/OA</NavLink>
           </div>
           <div className="cursor-pointer text-[#b0aeb3] hover:text-text-100 h-full">
             <NavLink to="video">MV</NavLink>
           </div>
         </div>
-        <div className="w-full h-full px-[60px]">
+        
+        <Outlet />
+       
+        <div className={`w-full h-full px-[60px] ${currentUrl!=='/tim-kiem/tat-ca' ? 'hidden': ''}`}>
           <div>
             <div className="text-left font-bold text-[20px] py-5">Nổi Bật</div>
             <div className="flex w-full gap-6">
@@ -219,7 +231,7 @@ const SearchAllPage = () => {
             </div>
           </div>
           <div className="flex w-full gap-6 mt-5">
-            {searchdata?.playlists?.map((playlist, index) => (
+            {searchdata?.playlists?.filter((playlist, index)=>index<5)?.map((playlist, index) => (
               <SectionItem
                 key={playlist.encodeId}
                 thumbnailM={playlist.thumbnailM}

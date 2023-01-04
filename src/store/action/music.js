@@ -47,9 +47,9 @@ export const updatePositionOfSong=(isInAlbum, isInPlaylist)=>{
     }
 }
 
-export const setTop100Vietnam=(top100Vietnam)=>{
+export const setTop100Vietnam=(top100Vietnam, top100USUK, top100Kpop)=>{
     return {
         type: actionType.SET_TOP_100_VIETNAM,
-        payload: top100Vietnam,
+        payload: {top100Vietnam, top100USUK, top100Kpop},
     }
 }

@@ -6,16 +6,15 @@ import bgChart from '../../assets/bg-chart/bg-chart.jpg'
 import { Line } from 'react-chartjs-2'
 import _ from 'lodash'
 import icons from '../../utils/icons'
-import { NavLink } from 'react-router-dom'
 
 import SongItem from '../home/SongItem'
 import Top100 from './Top100'
 const {BsFillPlayFill}=icons;
 const ZingChartPage = () => {
-  const {chart, weekChart}=useSelector(state=>state.app);
+  const {chart}=useSelector(state=>state.app);
+  console.log(chart);
   const {vietnam}=useSelector(state=>state.top100);
-  const dispatch=useDispatch();
-  //dispatch(actions.setCurrentPage(false, false, true));  
+  const dispatch=useDispatch(); 
   console.log(vietnam);
   const [data, setData] = useState(null);
     const chartRef = useRef()
@@ -24,7 +23,7 @@ const ZingChartPage = () => {
         top: 0,
         left: 0,
     })
-    const [tooltipData, setTooltipData] = useState(null)
+    const [tooltipData, setTooltipData] = useState();
     const options = {
         responsive: true,
         pointRadius: 0,
@@ -54,7 +53,7 @@ const ZingChartPage = () => {
                             data: chart?.chart?.items[Object.keys(chart?.chart?.items)[i]]?.filter(item => +item.hour % 2 === 0)?.map(item => item.counter)
                         })
                     const tooltipModel = ctx.tooltip
-                    setTooltipData(data.find(i => i.data.some(n => n === +tooltipModel.body[0].lines[0].replace(',', '')))?.encodeId)
+                    setTooltipData(data?.find(i => i?.data?.some(n => n === +tooltipModel?.body[0]?.lines[0].replace(',', '')))?.encodeId)
                     if (tooltipModel.opacity === 0) {
                         if (tooltip.opacity !== 0) setTooltip(prev => ({ ...prev, opacity: 0 }))
                         return
@@ -97,18 +96,16 @@ const ZingChartPage = () => {
   useEffect(()=>{
     const callApi=async()=>{
       const response=await apis.getHome();
-      const res=await apis.apiGetDetaiPlaylist(response?.data?.data?.items.find(item=>item.sectionId==="h100")?.items[0].encodeId);
+      const [top100vietnam, top100usuk, top100kpop]=await Promise.all([apis.apiGetDetaiPlaylist(response?.data?.data?.items.find(item=>item.sectionId==="h100")?.items[0].encodeId),
+      apis.apiGetDetaiPlaylist(response?.data?.data?.items.find(item=>item.sectionId==="h100")?.items[1].encodeId),
+      apis.apiGetDetaiPlaylist(response?.data?.data?.items.find(item=>item.sectionId==="h100")?.items[4].encodeId),
+    ]);
       console.log(response);
-      console.log(res);
-      // setData(response?.data?.data);
-      // setDt(res?.data?.data);
+      
       if(response?.data.err===0){
-        //dispatch(actions.setCurrentPage(false, true, false));  
-         //dispatch(actions.setEvents(response?.data?.data?.items.find((item)=>(item.sectionId==="hSlider" && item.sectionType==='event'))?.items));
-         dispatch(actions.setChart(response?.data?.data?.items.find(item=>(item.sectionType==="weekChart")).items, response?.data?.data?.items.find(item=>(item.sectionId==="hZC" && item.sectionType==="RTChart"))));
-         dispatch(actions.setTop100Vietnam(res?.data?.data?.song?.items));         
+        dispatch(actions.setChart(response?.data?.data?.items.find(item=>(item.sectionType==="weekChart")).items, response?.data?.data?.items.find(item=>(item.sectionId==="hZC" && item.sectionType==="RTChart"))));
+         dispatch(actions.setTop100Vietnam(top100vietnam?.data?.data?.song?.items, top100usuk?.data?.data?.song?.items, top100kpop?.data?.data?.song?.items));         
         }
-     // console.log('home',response);
      }
      callApi();
   }, []);
@@ -120,9 +117,9 @@ const ZingChartPage = () => {
             <div className='absolute top-0 z-10 left-0 right-0 bg-[rgba(21,14,32,0.9)] bottom-0'></div>
             <div className='absolute top-0 z-20 left-[20px] right-[20px] bottom-0 p-5 flex flex-col gap-8'>
                 <h3 className='text-[40px] text-text-100 font-bold text-left cursor-pointer hover:text-main-500 flex items-center gap-2'>#zingchart <span className='rounded-full border bg-white text-main-500 hover:bg-[#ced5e3]'><BsFillPlayFill/></span></h3>
-                <div className='flex gap-4 h-full'>
+                <div className='flex gap-4 h-fit'>
                     
-                    {data && <div className='flex-5 relative w-[60%]'>
+                    {data && <div className='flex-5 relative w-[100%] h-auto'>
                         <Line ref={chartRef} data={data} options={options} />
                         <div className='tooltip' style={{ top: tooltip.top, left: tooltip.left, position: 'absolute', opacity: tooltip.opacity }}>
                             <SongItem
@@ -140,8 +137,8 @@ const ZingChartPage = () => {
             </div>
         </div>
        
-        </div>
         <Top100/>
+        </div>
     </div>
   )
  

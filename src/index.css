@@ -14,3 +14,23 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-shadow-no1 {
+  text-shadow: 1px 1px 0 rgb(57, 174, 241), -1px 1px 0 rgb(57, 174, 241), -1px -1px 0 rgb(57, 174, 241),
+      1px -1px 0 rgb(57, 174, 241);
+}
+
+.text-shadow-no2 {
+  text-shadow: 1px 1px 0 rgb(66,174,154), -1px 1px 0 rgb(66,174,154), -1px -1px 0 rgb(66,174,154),
+      1px -1px 0 rgb(66,174,154);
+}
+
+.text-shadow-no3 {
+  text-shadow: 1px 1px 0 rgb(148,55,62), -1px 1px 0 rgb(148,55,62), -1px -1px 0 rgb(148,55,62),
+      1px -1px 0 rgb(148,55,62);
+}
+
+.text-shadow-default {
+  text-shadow: 1px 1px 0 rgb(255, 255, 255), -1px 1px 0 rgb(255, 255, 255), -1px -1px 0 rgb(255,255,255),
+      1px -1px 0 rgb(255,255,255);
+}

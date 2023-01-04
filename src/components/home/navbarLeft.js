@@ -1,13 +1,19 @@
 import React from 'react'
 import Path from '../../utils/path'
+import * as actions from '../../store/action'
 import {useNavigate, NavLink} from 'react-router-dom'
 import { sidebarMenu } from '../../utils/menus'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 const NavbarLeft = () => {
+  const dispatch=useDispatch();
     const navigate=useNavigate();
     const {currentUrl}=useSelector(state=>state.app);
     console.log(currentUrl);
+    const handleClickNavLeft=(path)=>{
+      //console.log(path);
+      dispatch(actions.setCurrentUrl(path));
+    }
   return (
     <div className='w-[240px] bg-[#231b2e]'>
       <div className='w-full h-[70px] py-[15px] px-[25px] flex justify-start items-center cursor-pointer' onClick={()=>navigate(Path.HOME)}>
@@ -32,7 +38,8 @@ const NavbarLeft = () => {
             to={item.path}
             key={item.path}
             end={item.end}
-            className={`text-white flex items-center py-2 gap-1 bg-main-100 pl-[25px] ${currentUrl.split('/')[0]===item.path ? 'border-l-4 border-main-500': ''}`}
+            className={`text-white flex items-center py-2 gap-1  pl-[25px] ${currentUrl.split('/')[0]===item.path ? 'border-l-4 border-main-500 bg-main-100': ''}`}
+            onClick={()=>handleClickNavLeft(item.path)}
             >
               {item.icons}
               <span>{item.text}</span>

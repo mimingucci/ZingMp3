@@ -24,7 +24,7 @@ function App() {
         <Route path={path.PUBLIC} element={<Public/>} >
           <Route path={path.ARTISTS} element={<Artists />} />
           <Route path='zing-chart' element={<ZingChartPage />}/>
-          {/* <Route path={path.STAR} element={<Home/>} /> */}
+          <Route path={path.STAR} element={<Home/>} />
           <Route path={path.API_SEARCH_ALL+'/'+path.ALL} element={<SearchAllPage />} >
             <Route path={path.SONG} element={<SearchSong />}/>
             <Route path={path.PLAYLIST} element={<PlaylistSearch />}/>

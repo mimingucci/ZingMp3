@@ -37,9 +37,15 @@ const appReducer = (state = initState, action) => {
           isLoop: action.payload,
         }
       case actionType.SET_EVENTS:
-        return {
-          ...state,
-          events:[...action.payload],
+        if(typeof action.payload!='array'){
+          return {
+            ...state,
+          }
+        }else{
+          return {
+            ...state,
+            events:[...action.payload],
+          }
         }
       case actionType.SET_CHART:
         return {

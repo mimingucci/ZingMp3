@@ -46,3 +46,10 @@ export const updatePositionOfSong=(isInAlbum, isInPlaylist)=>{
         payload: {isInAlbum, isInPlaylist},
     }
 }
+
+export const setTop100Vietnam=(top100Vietnam)=>{
+    return {
+        type: actionType.SET_TOP_100_VIETNAM,
+        payload: top100Vietnam,
+    }
+}
